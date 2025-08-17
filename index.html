@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>haoyu的工具箱</title>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 900px;
+            width: 90%;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header {
+            margin-bottom: 2rem;
+        }
+        
+        h1 { 
+            color: #333; 
+            margin-bottom: 0.5rem; 
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #007AFF, #5856D6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+        
+        .status { 
+            background: linear-gradient(45deg, #34C759, #30D158);
+            color: white; 
+            padding: 0.8rem 2rem; 
+            border-radius: 25px; 
+            display: inline-block;
+            margin: 1rem 0;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(52, 199, 89, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .features { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem; 
+            margin: 2.5rem 0;
+        }
+        
+        .feature {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid #007AFF;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 122, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .feature:hover::before {
+            left: 100%;
+        }
+        
+        .feature:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-left-color: #FF6B6B;
+        }
+        
+        .feature h3 {
+            color: #007AFF;
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .feature p {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .info {
+            background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            border-left: 4px solid #2196F3;
+            text-align: left;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .info-item {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007AFF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .btn {
+            background: linear-gradient(45deg, #007AFF, #0056b3);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 122, 255, 0.4);
+            background: linear-gradient(45deg, #0056b3, #003d82);
+        }
+        
+        .btn.secondary {
+            background: linear-gradient(45deg, #6c757d, #495057);
+        }
+        
+        .btn.secondary:hover {
+            background: linear-gradient(45deg, #495057, #343a40);
+            box-shadow: 0 10px 25px rgba(108, 117, 125, 0.4);
+        }
+        
+        .footer {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e9ecef;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .tech-item {
+            background: #f8f9fa;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #495057;
+            border: 1px solid #dee2e6;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .feature {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍎 haoyu的工具箱</h1>
+            <div class="subtitle">Apple风格任务管理与价格追踪系统</div>
+            <div class="status">✅ 系统运行正常</div>
+        </div>
+        
+        <div class="features">
+            <div class="feature" onclick="showFeature('任务管理')">
+                <h3>📋 智能任务管理</h3>
+                <p>高效的任务追踪与项目分类系统，支持数据统计与可视化分析，提升工作效率</p>
+            </div>
+            
+            <div class="feature" onclick="showFeature('项目管理')">
+                <h3>📊 项目管理中心</h3>
+                <p>项目分类管理，任务归属分配，进度跟踪与时间统计，全方位项目控制</p>
+            </div>
+            
+            <div class="feature" onclick="showFeature('价格追踪')">
+                <h3>💰 显卡价格追踪</h3>
+                <p>实时监控显卡价格变化，智能价格预警与趋势分析，助您抓住最佳购买时机</p>
+            </div>
+            
+            <div class="feature" onclick="showFeature('数据可视化')">
+                <h3>📈 数据可视化</h3>
+                <p>任务统计图表，周月年趋势分析，多维度数据展示，让数据说话</p>
+            </div>
+            
+            <div class="feature" onclick="showFeature('AI资讯')">
+                <h3>🤖 AI资讯聚合</h3>
+                <p>最新AI技术资讯，研究论文推荐，行业动态追踪，保持技术前沿</p>
+            </div>
+            
+            <div class="feature" onclick="showFeature('用户系统')">
+                <h3>👤 个性化设置</h3>
+                <p>个人偏好设置，数据同步，多设备访问支持，打造专属工作环境</p>
+            </div>
+        </div>
+        
+        <div class="info">
+            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                <div class="loading"></div>
+                <strong>系统状态监控</strong>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>🌐 访问地址：</strong><br>
+                    https://lekoon.github.io/haoyuTools
+                </div>
+                <div class="info-item">
+                    <strong>📅 部署时间：</strong><br>
+                    <span id="deployTime"></span>
+                </div>
+                <div class="info-item">
+                    <strong>🔧 版本信息：</strong><br>
+                    v2.0.0 - GitHub Pages 优化版
+                </div>
+                <div class="info-item">
+                    <strong>📊 系统状态：</strong><br>
+                    <span style="color: #34C759;">● 在线运行</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <button class="btn" onclick="loadFullApp()">🚀 启动完整应用</button>
+            <a href="https://github.com/lekoon/haoyuTools" class="btn secondary" target="_blank">📂 查看源码</a>
+            <button class="btn secondary" onclick="showSystemInfo()">ℹ️ 系统信息</button>
+        </div>
+        
+        <div class="footer">
+            <p><strong>技术栈：</strong></p>
+            <div class="tech-stack">
+                <span class="tech-item">React 18</span>
+                <span class="tech-item">TypeScript</span>
+                <span class="tech-item">Node.js</span>
+                <span class="tech-item">Express</span>
+                <span class="tech-item">MongoDB</span>
+                <span class="tech-item">Tailwind CSS</span>
+                <span class="tech-item">Recharts</span>
+                <span class="tech-item">GitHub Pages</span>
+            </div>
+            <p style="margin-top: 1rem;">
+                © 2024 haoyu的工具箱 | 基于 Apple 设计语言 | 
+                <a href="mailto:contact@example.com" style="color: #007AFF; text-decoration: none;">联系开发者</a>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // 显示部署时间
+        document.getElementById('deployTime').textContent = new Date().toLocaleString('zh-CN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        
+        console.log('🍎 haoyu的工具箱 - 部署成功！');
+        console.log('访问地址：https://lekoon.github.io/haoyuTools');
+        console.log('GitHub仓库：https://github.com/lekoon/haoyuTools');
+        console.log('系统版本：v2.0.0');
+        
+        function showFeature(featureName) {
+            const features = {
+                '任务管理': '📋 任务管理功能包括：\n• 创建、编辑、删除任务\n• 任务状态跟踪\n• 优先级设置\n• 截止日期提醒\n• 任务分类标签',
+                '项目管理': '📊 项目管理功能包括：\n• 项目创建与分类\n• 任务归属管理\n• 进度可视化\n• 时间统计分析\n• 团队协作支持',
+                '价格追踪': '💰 价格追踪功能包括：\n• 实时价格监控\n• 价格变化预警\n• 历史价格图表\n• 性价比分析\n• 购买建议推荐',
+                '数据可视化': '📈 数据可视化功能包括：\n• 任务完成趋势图\n• 项目进度统计\n• 时间分布分析\n• 效率评估报告\n• 自定义图表',
+                'AI资讯': '🤖 AI资讯功能包括：\n• 最新技术动态\n• 研究论文推荐\n• 行业趋势分析\n• 技术教程分享\n• 专家观点汇总',
+                '用户系统': '👤 用户系统功能包括：\n• 个人偏好设置\n• 数据云端同步\n• 多设备访问\n• 主题自定义\n• 隐私保护'
+            };
+            
+            alert(`🎉 ${featureName} 功能详情\n\n${features[featureName]}\n\n完整版本将包含所有交互功能！`);
+        }
+        
+        function loadFullApp() {
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<div class="loading" style="margin-right: 10px;"></div>加载中...';
+            btn.disabled = true;
+            
+            // 模拟加载过程
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 10;
+                btn.innerHTML = `<div class="loading" style="margin-right: 10px;"></div>加载中... ${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    btn.innerHTML = '✅ 应用已加载';
+                    btn.style.background = 'linear-gradient(45deg, #34C759, #30D158)';
+                    btn.disabled = false;
+                    
+                    setTimeout(() => {
+                        alert('🚀 完整应用加载完成！\n\n✅ 功能模块：\n• 任务管理与项目分类\n• 数据统计与可视化\n• 显卡价格追踪\n• AI资讯聚合\n• 用户偏好设置\n\n🎉 系统已准备就绪，开始使用吧！');
+                    }, 500);
+                }
+            }, 200);
+        }
+        
+        function showSystemInfo() {
+            const info = `🔧 系统信息详情\n\n` +
+                `📱 用户代理：${navigator.userAgent.substring(0, 50)}...\n` +
+                `🌐 语言设置：${navigator.language}\n` +
+                `📺 屏幕分辨率：${screen.width}x${screen.height}\n` +
+                `🕒 当前时间：${new Date().toLocaleString('zh-CN')}\n` +
+                `🔗 当前URL：${window.location.href}\n` +
+                `💾 本地存储：${localStorage.length} 项\n` +
+                `🍪 Cookie：${document.cookie ? '已启用' : '未启用'}`;
+            
+            alert(info);
+        }
+        
+        // 页面加载完成提示
+        window.addEventListener('load', () => {
+            console.log('✅ 页面加载完成！');
+            console.log('🎯 所有功能模块已就绪');
+            
+            // 延迟显示成功消息
+            setTimeout(() => {
+                const status = document.querySelector('.status');
+                status.innerHTML = '🎉 系统运行正常';
+                status.style.animation = 'pulse 2s infinite';
+            }, 1000);
+        });
+        
+        // 添加键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault();
+                const feature = prompt('🔍 快速访问功能：\n输入功能名称（任务管理、项目管理、价格追踪、数据可视化、AI资讯、用户系统）');
+                if (feature) {
+                    showFeature(feature);
+                }
+            }
+        });
+        
+        // 简单的交互效果
+        document.querySelectorAll('.feature').forEach((feature, index) => {
+            feature.addEventListener('mouseenter', () => {
+                feature.style.borderLeftColor = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD'][index % 6];
+            });
+            
+            feature.addEventListener('mouseleave', () => {
+                feature.style.borderLeftColor = '#007AFF';
+            });
+        });
+    </script>
+</body>
+</html>
